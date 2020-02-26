@@ -8,13 +8,17 @@
 <title>Document</title>
 </head>
 <body>
-
-	<input type="text" id="inputText">
-	<input type="button" id="sample" value="送信">
-
+	<form name="myform">
+		<input type="text" name="text">
+		<!-- <input type="button" id="sample" value="送信"> -->
+		<button name="btn">送信</button>
+	</form>
+	<ul id="message"></ul>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 	<script>
 		//var sock = new WebSocket('wss://html5rocks.websocket.org/echo');
-		var sock = new WebSocket('wss://akiitu.github.io/NewTeamPj/test/index.html');
+		/* var sock = new WebSocket('wss://akiitu.github.io/NewTeamPj/test/index.html');
 
 		//接続
 		sock.addEventListener('open', function(e) {
@@ -35,7 +39,24 @@
 
 						sock.send(text.value);
 					});
+		}); */
+		var socket = io();
+		var form = document.forms.myform;
+
+		form.btn.addEventListener('click', function(e) {
+			e.preventDefault();
+
+			socket.emit('chat', form.text.value);
+			form.text.value = '';
 		});
+
+		socket.on('chat', function(msg)){
+			var li = document.createElement('li');
+
+			li.textContent = msg;
+			message.appendChild(li);
+		}
+
 	</script>
 </body>
 </html>
