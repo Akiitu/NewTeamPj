@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'pigmo';
+	src: local('Pigmo-01'), url('Pigmo-01.otf');
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html {
+	margin: 0;
+	pading: 0;
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	pading: 0;
+	background-image: url(../image/background3.jpg);
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#backgroundcolor {
+	margin: 0;
+	pading: 0; width : 100%;
+	height: 100%;
+	width: 100%; height : 100%;
+	background: radial-gradient(rgba(222, 184, 135, 0.7),
+		rgba(255, 239, 213, 0.7) 40%, rgba(139, 69, 19, 0.7));
+}
+
+#main {
+	width: 500px;
+	height: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+#title {
+	font-family: 'pigmo';
+	font-weight: bold;
+	color: #2e8b57;
+	border-bottom: solid 2px bleck;
+	font-size: 80px;
+	text-align: center;
+	text-shadow: 4px 4px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px
+		0 #000;
+	-webkit-text-stroke: 0.5px #FFF;
+	text-stroke: 0.5px #FFF;
+}
+
+main {
+	width: 405px;
+	margin: 0 auto;
+}
+
+#main_outer_div {
+	padding: 5px;
+	background-color: #228b22;
+}
+
+#hab1_td_hedder {
+	margin-right: 18px;
+	background-color: #228b22;
+	color: #FFF;
+}
+
+#main_inner_div {
+	overflow-y: auto;
+	height: 180px;
+	background-color: #228b22;
+}
+
+#hab1_tb {
+	margin-top: 10px;
+	border-spacing: 0;
+}
+
+#hab1_tb th, tr, td {
+	border: 1px solid;
+}
+
+#hab1_tb td {
+	padding-top: 5px 0;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	text-align: center;
+}
+
+#hab1_tb tr {
+	background-color: #ffffe0;
+}
+
+#hab1_tb tr:nth-child(2n+1) {
+	background-color: #fffacd;
+}

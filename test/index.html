@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="icon" href="">
+<title>Document</title>
+</head>
+<body>
+
+	<input type="text" id="inputText">
+	<input type="button" id="sample" value="送信">
+
+	<script>
+		var sock = new WebSocket('wss://html5rocks.websocket.org/echo');
+
+		//接続
+		sock.addEventListener('open', function(e) {
+			console.log('Socket 接続成功');
+		});
+
+		//サーバーからデータを受け取る
+		sock.addEventListener('message', function(e) {
+			console.log(e.data);
+		});
+
+		document.addEventListener('DOMContentLoaded', function(e) {
+			//サーバーにデータを送る
+			document.getElementById('sample').addEventListener('click',
+					function(e) {
+
+						var text = document.getElementById('inputText');
+
+						sock.send(text.value);
+					});
+		});
+	</script>
+</body>
+</html>
