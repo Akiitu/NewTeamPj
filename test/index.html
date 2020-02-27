@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
 <title>tanopon劇場</title>
 <link rel="icon" href="">
-<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -31,7 +31,7 @@
 			$("#chatLogs").append("<div>" + text + "</div>");
 		}
 
-		$("form").submit( function(e) {
+		$('form').submit( function(e) {
 			var message = $("#msgForm").val();
 			$("#msgForm").val('');
 

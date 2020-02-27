@@ -2,14 +2,16 @@
 //必要なモジュールを読み込む
 var http = require('http');
 var socketio = require('socket.io');
-var html = require('fs');
+var fs = require('fs');
 
 //HTTPサーバを生成する
-var server = http.createServer(function(req, res{
-	response.writeHead(200,{'Content-Type': 'text/html'});
-	response.end(fs.readFileSync(process.cwd() + '/index.html', 'utf-8'));
+var server = http.createServer(function(req, res) {
+	res.writeHead(200,{'Content-Type': 'text/html'});
+	process.chdir('..');
+	res.end(fs.readFileSync(process.cwd() + '\\index.html', 'utf-8'));
+	process.chdir(__dirname);
 
-	console.log(__dirname + '/index.html')
+	console.log('コンソールだよ : \\index.html');
 
 }).listen(3000); //ポート競合の場合は値を変更
 
