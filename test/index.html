@@ -2,59 +2,41 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+<title>tanopon劇場</title>
 <link rel="icon" href="">
-<title>Document</title>
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-	<form name="myform">
-		<input type="text" name="text">
-		<!-- <input type="button" id="sample" value="送信"> -->
-		<button name="btn">送信</button>
+	<form class="form-inline">
+		<div class="form-group">
+		<label for="msgForm">メッセージ :</label>
+		<input type="text" class="form-control" id="msgForm">
+		</div>
+				<button type="submit" class="btn btn-primary">送信</button>
 	</form>
-	<ul id="message"></ul>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-	<script>
-		//var sock = new WebSocket('wss://html5rocks.websocket.org/echo');
-		/* var sock = new WebSocket('wss://akiitu.github.io/NewTeamPj/test/index.html');
-
-		//接続
-		sock.addEventListener('open', function(e) {
-			console.log('Socket 接続成功');
-		});
-
-		//サーバーからデータを受け取る
-		sock.addEventListener('message', function(e) {
-			console.log(e.data);
-		});
-
-		document.addEventListener('DOMContentLoaded', function(e) {
-			//サーバーにデータを送る
-			document.getElementById('sample').addEventListener('click',
-					function(e) {
-
-						var text = document.getElementById('inputText');
-
-						sock.send(text.value);
-					});
-		}); */
-		var socket = io();
+	<div id="chatLogs"></div>
+	<script type="text/javascript">
+		var socket = io.connect(); //ソケットへの接続
 		var form = document.forms.myform;
 
-		form.btn.addEventListener('click', function(e) {
-			e.preventDefault();
-
-			socket.emit('chat', form.text.value);
-			form.text.value = '';
+		//server_to_clientイベント・データを受信する
+		socket.on('server_to_client', function(data){
+			appendMsg(data.value)
 		});
 
-		socket.on('chat', function(msg){
-			var li = document.createElement('li');
+		function appendMsg(text) {
+			$("#chatLogs").append("<div>" + text + "</div>");
+		}
 
-			li.textContent = msg;
-			message.appendChild(li);
+		$("form").submit( function(e) {
+			var message = $("#msgForm").val();
+			$("#msgForm").val('');
+
+			socket.emit('client_to_server', {value : message});
+			e.preventDefault();
 		});
 
 	</script>

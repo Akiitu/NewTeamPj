@@ -1,35 +1,29 @@
-//var server = require('ws').Server;
-//var s = new server ({port: 5001});
 
-var http = require('http').createServer(handler);
-var html = require('fs').readFileSync('../index.html');
+//必要なモジュールを読み込む
+var http = require('http');
+var socketio = require('socket.io');
+var html = require('fs');
 
-function handler(request, response) {
+//HTTPサーバを生成する
+var server = http.createServer(function(req, res{
 	response.writeHead(200,{'Content-Type': 'text/html'});
-	response.end(html);
-}
+	response.end(fs.readFileSync(process.cwd() + '/index.html', 'utf-8'));
 
-http.listen(3000);
+	console.log(__dirname + '/index.html')
 
-var io = require('socket.io')(http);
+}).listen(3000); //ポート競合の場合は値を変更
 
-io.on('connection', function(socket){
+//HTTPサーバにソケットを紐付ける(WebSocket有効化)
+var io = socketio.listen(server);
 
-	socket.on('chat', function(msg){
-		io.emit('chat', msg);
+//connectionイベント・データを受信する
+io.sockets.on('connection', function(socket) {
+
+	//client_to_serverイベント・データを受信する
+	socket.on('client_to_server', function(data) {
+
+		//server_to_clientイベントデータを送信する
+		io.sockets.emit('server_to_client', {value : data.value});
 	});
 });
 
-/*s.on('connection', function(ws){
-
-	ws.on('message', function(message) {
-		s.clients.forEach(function(client){
-			client.send(message + ' : ' + new Date());
-		});
-	});
-
-	ws.on('close', function(){
-		console.log('I lost a client');
-	});
-
-});*/
