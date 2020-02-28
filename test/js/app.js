@@ -11,7 +11,7 @@ var server = http.createServer(function(req, res) {
 	res.end(fs.readFileSync(process.cwd() + '\\index.html', 'utf-8'));
 	process.chdir(__dirname);
 
-	console.log('コンソールだよ : \\index.html');
+	console.log('コンソールだよ :' + __dirname);
 
 }).listen(3000); //ポート競合の場合は値を変更
 
